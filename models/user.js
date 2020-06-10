@@ -4,11 +4,12 @@ const bcrypt = require("bcryptjs");
 module.exports = function(sequelize, DataTypes) {
   const User = sequelize.define("User", {
     // The email cannot be null, and must be a proper email before creation
-    id: {},
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      len: [1]
+      validate: {
+        len: [1]
+      }
     },
     email: {
       type: DataTypes.STRING,
@@ -38,6 +39,12 @@ module.exports = function(sequelize, DataTypes) {
       null
     );
   });
+
+  User.associate = models => {
+    User.hasMany(models.Restaurant, {
+      onDelete: "cascade"
+    });
+  };
 
   return User;
 };

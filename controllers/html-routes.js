@@ -8,7 +8,7 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 router.get("/", (req, res) => {
   // landing page
-  res.sendFile(path.join(__dirname, "../public/index.html"))
+  res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
 router.get("/signup", (req, res) => {
@@ -16,7 +16,7 @@ router.get("/signup", (req, res) => {
   if (req.user) {
     res.redirect("/members");
   }
-  res.sendFile(path.join(__dirname, "../public/signup.html")); 
+  res.sendFile(path.join(__dirname, "../public/signup.html"));
 });
 
 router.get("/login", (req, res) => {
@@ -33,10 +33,10 @@ router.get("/members", isAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, "../public/members.html"));
 });
 
-router.get("/:restaurant", (req, res) => {
-  let placeholder = req.params.restaurant;
-  restaurant.selectAll();
-});
+// router.get("/:restaurant", (req, res) => {
+//   let placeholder = req.params.restaurant;
+//   restaurant.selectAll();
+// });
 
 module.exports = router;
 

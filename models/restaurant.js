@@ -10,7 +10,9 @@ module.exports = function(sequelize, DataTypes) {
     address: {
       type: DataTypes.STRING,
       allowNull: false,
-      len: [1]
+      validate: {
+        len: [1]
+      }
     },
     hours: {
       type: DataTypes.STRING
@@ -22,14 +24,14 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Restaurant.associate = function(models) {
-    // We're saying that a Post should belong to an Author
-    // A Post can't be created without an Author due to the foreign key constraint
     Restaurant.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
       }
     });
+    Restaurant.hasMany(models.Menu, {
+      onDelete: "cascade"
+    });
   };
-
   return Restaurant;
 };
