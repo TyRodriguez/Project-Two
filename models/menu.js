@@ -1,6 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
   const Menu = sequelize.define("Menu", {
-    id: {},
     item: {
       type: DataTypes.STRING,
       allowNull: false,
