@@ -28,9 +28,9 @@ $(document).ready(() => {
     submitRestaurant(userRestaurant);
   });
   // Submits a new restaurant and brings user to menu page
-  function submitRestaurant(Restaurant) {
-$.post("/api/posts/", Post, function() {
-  window.location.href = "/menu";
-});
+  function submitRestaurant() {
+    $.post("/api/posts/", Post, () => {
+      window.location.href = "/menu";
+    });
   }
 });

@@ -3,7 +3,7 @@ const express = require("express");
 const session = require("express-session");
 // Requiring passport as we've configured it
 const passport = require("./config/passport");
-const handlebars = require('express-handlebars');
+const handlebars = require("express-handlebars");
 // Setting up port and requiring models for syncing
 const PORT = process.env.PORT || 8080;
 const db = require("./models");
@@ -20,8 +20,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.engine('handlebars', handlebars({defaultLayout:"main"}));
-app.set('view engine', "handlebars")
+app.engine("handlebars", handlebars({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 // Requiring our routes
 require("./controllers/html-routes.js")(app);
 require("./controllers/api-routes.js")(app);

@@ -58,7 +58,7 @@ module.exports = function(app) {
   });
 
   // restaurant page
-  app.get("/restaurants", (req, res) => {
-    // res.render();
-  });
+  // app.get("/restaurants", (req, res) => {
+  //   // res.render();
+  // });
 };
