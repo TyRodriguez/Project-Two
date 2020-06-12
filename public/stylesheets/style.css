@@ -2,3 +2,49 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
+
+/* styles for index.html */
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  background-image: url("../images/storefront.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-position: center; */
+}
+
+#Restaurateur{
+  width:320px;
+  margin: auto;
+  text-align: center;
+  padding-top: 80px;
+}
+
+#indexButtons {
+  max-width:320px;
+  text-align: center;
+  margin-top: 400px;
+  margin: 0 auto;
+}
+  
+
+.brickRedButton {
+  background-color:#CC3210;
+  font-size: 16px;
+  color: #FFFFFF;
+  border: none;
+  margin: 0 0 15px 15px;
+  display: inline-block;
+}
+
+
+
+
+/* styles for login.html */
+#formContainer{
+  background-color: #FFFFFF;
+  top: 300px;
+}
