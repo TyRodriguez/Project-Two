@@ -10,7 +10,7 @@ module.exports = function(app) {
     if (req.user) {
       res.redirect("/members");
     }
-    res.sendFile(path.join(__dirname, "../public/signup.html"));
+    res.render("index");
   });
 
   app.get("/login", (req, res) => {
@@ -18,7 +18,31 @@ module.exports = function(app) {
     if (req.user) {
       res.redirect("/members");
     }
-    res.sendFile(path.join(__dirname, "../public/login.html"));
+    res.render("login");
+  });
+
+  app.get("/signup", (req, res) => {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      res.redirect("/signup");
+    }
+    res.render("signup");
+  });
+  // How can we see how members is rendered? How can we test Passport Login?
+  app.get("/members", (req, res) => {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      res.redirect("/signup");
+    }
+    res.render("members");
+  });
+
+  app.get("/menu", (req, res) => {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      res.redirect("/signup");
+    }
+    res.render("menu");
   });
 
   // Here we've add our isAuthenticated middleware to this route.
