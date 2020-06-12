@@ -27,10 +27,10 @@ $(document).ready(() => {
     // run submitRestaurant to create a new Restaurant
     submitRestaurant(userRestaurant);
   });
-   // Submits a new restaurant and brings user to menu page 
-   function submitPost(Post) {
-    $.post("/api/posts/", Post, function() {
-      window.location.href = "/blog";
-    });
+  // Submits a new restaurant and brings user to menu page
+  function submitRestaurant(Restaurant) {
+$.post("/api/posts/", Post, function() {
+  window.location.href = "/menu";
+});
   }
 });
