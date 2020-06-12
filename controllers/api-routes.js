@@ -46,12 +46,12 @@ module.exports = function(app) {
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
         email: req.user.email,
-        id: req.user.id,
+        id: req.user.id
       });
     }
   });
 
-  // route for restaurants
+  // get route for restaurants
   app.get("/api/restaurants/:name", (req, res) => {
     db.Restaurant.findOne({
       where: {
@@ -60,5 +60,31 @@ module.exports = function(app) {
     }).then(dbRestaurant => {
       res.json(dbRestaurant);
     });
+  });
+
+  // get route for the menu
+  app.get("/api/menu", (req, res) => {
+    const query = {};
+    if (req.query.restaurant_id) {
+      query.RestaurantId = req.query.restaurant_id;
+    }
+    db.Menu.findAll({
+      where: query,
+      include: [db.Restaurant]
+    }).then(dbMenu => {
+      res.json(dbMenu);
+    });
+  });
+
+  // post route for new restaurant
+  app.post("/api/restaurants", (req, res) => {
+    db.Restaurant.create(req.body).then(dbRestaurant => {
+      res.json(dbRestaurant);
+    });
+  });
+
+  //put route for updating restaurant info
+  app.put("/api/restaurants", (req, res) => {
+    console.log(req.body);
   });
 };
