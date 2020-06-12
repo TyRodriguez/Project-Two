@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3" id="formContainer">
+        <h2>Login Form</h2>
+        <form class="login">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="email-input" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="password-input" placeholder="Password">
+          </div>
+          
+          {{!-- below on submit, we need the page to go to members.handlebars
+          and display the members email address that was entered above on the page --}}
+          <a class="button brickRedButton" href="/menu">Sign Up</a>
+          {{!-- <button type="submit" class="btn btn-default">Login</button> --}}
+         
+        </form>
+        <br />
+        {{!-- the route below isnt going to signup.handlebars and I cant figure out why --}}
+        <p>Or sign up <a href="/signup">here</a></p>
+      </div>
+    </div>
+  </div>
