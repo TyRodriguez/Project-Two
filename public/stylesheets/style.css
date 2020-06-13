@@ -42,22 +42,21 @@ body {
 
 
 
-
 /* styles for login.html */
 #formContainer{
   background-color: #FFFFFF;
   top: 300px;
+  
 }
 
 .restaurant {
   background-color: white;
   opacity: 90%;
-  /* align-items: center;
-  width: 30%;
-  display: inline-block; */
+  border-radius: 25px;
+ 
  }  
  .form-group {
    color: #CC3210;
-   text-transform: bold;
+   font-weight: bold;
 
  }
