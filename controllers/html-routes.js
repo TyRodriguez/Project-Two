@@ -21,7 +21,7 @@ module.exports = function(app) {
   app.get("/login", (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/members");
+      res.redirect("/menu");
     }
     res.render("login");
   });
@@ -33,12 +33,15 @@ module.exports = function(app) {
     res.render("members");
   });
 
+  //this page is for adding menu items for members
   app.get("/menu", isAuthenticated, (req, res) => {
     // If the user already has an account send them to the members page
     res.render("menu");
   });
 
-  // app.get("/restaurants", (req, res) => {
-  //   // res.render();
+  // // this page will be for all viewers to see the menu
+  // app.get("/menu", (req, res) => {
+  //   // send front end menu
+  //   res.render("");
   // });
 };
