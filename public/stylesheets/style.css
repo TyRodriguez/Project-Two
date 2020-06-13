@@ -48,3 +48,16 @@ body {
   background-color: #FFFFFF;
   top: 300px;
 }
+
+.restaurant {
+  background-color: white;
+  opacity: 90%;
+  /* align-items: center;
+  width: 30%;
+  display: inline-block; */
+ }  
+ .form-group {
+   color: #CC3210;
+   text-transform: bold;
+
+ }
