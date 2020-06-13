@@ -17,9 +17,12 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/restaurants/recent", (req, res) => {
-    db.Restaurant.findAll().then(dbRestaurant => {
-      res.json(dbRestaurant.slice(-1));
+  app.get("/api/restaurants/:id", (req, res) => {
+    db.Restaurant.findOne({
+      include: db.Menu,
+      where: { id: req.params.id }
+    }).then(dbRestaurant => {
+      res.json(dbRestaurant);
     });
   });
 
