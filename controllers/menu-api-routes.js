@@ -38,7 +38,7 @@ module.exports = function(app) {
   });
 
   //delete route for getting rid of rows in the menu table
-  app.delete("api/menu/:id", (req, res) => {
+  app.delete("/api/menu/:id", (req, res) => {
     db.Menu.destroy({
       where: {
         id: req.params.id
