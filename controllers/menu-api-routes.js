@@ -18,6 +18,7 @@ module.exports = function(app) {
 
   // post route for new menu items
   app.post("/api/menu", (req, res) => {
+    console.log(req.body);
     db.Menu.create(req.body).then(dbMenu => {
       res.json(dbMenu);
     });
@@ -37,7 +38,7 @@ module.exports = function(app) {
   });
 
   //delete route for getting rid of rows in the menu table
-  app.delete("api/menu/:id", (req, res) => {
+  app.delete("/api/menu/:id", (req, res) => {
     db.Menu.destroy({
       where: {
         id: req.params.id
