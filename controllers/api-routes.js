@@ -40,6 +40,13 @@ module.exports = function(app) {
     });
   });
 
+  // post route for new menu items
+  app.post("/api/menu", (req, res) => {
+    db.Menu.create(req.body).then(dbMenu => {
+      res.json(dbMenu);
+    });
+  });
+
   //put route for updating restaurant info
   // app.put("/api/restaurants", (req, res) => {
   //   console.log(req.body);
