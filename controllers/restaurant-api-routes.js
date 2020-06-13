@@ -3,11 +3,15 @@ const db = require("../models");
 
 module.exports = function(app) {
   // get route for restaurants
-  app.get("/api/restaurant/:name", (req, res) => {
-    db.Restaurant.findOne({
-      where: {
-        name: req.params.name
-      }
+  app.get("/api/restaurants", (req, res) => {
+    console.log(req.query);
+    const query = {};
+    if (req.query.user_id) {
+      query.UserId = req.query.user_id;
+    }
+    db.Restaurant.findAll({
+      where: query,
+      include: [db.User]
     }).then(dbRestaurant => {
       res.json(dbRestaurant);
     });
@@ -16,20 +20,6 @@ module.exports = function(app) {
   app.get("/api/restaurants/recent", (req, res) => {
     db.Restaurant.findAll().then(dbRestaurant => {
       res.json(dbRestaurant.slice(-1));
-    });
-  });
-
-  // get route for the menu
-  app.get("/api/menu", (req, res) => {
-    const query = {};
-    if (req.query.restaurant_id) {
-      query.RestaurantId = req.query.restaurant_id;
-    }
-    db.Menu.findAll({
-      where: query,
-      include: [db.Restaurant]
-    }).then(dbMenu => {
-      res.json(dbMenu);
     });
   });
 
@@ -48,7 +38,16 @@ module.exports = function(app) {
   });
 
   //put route for updating restaurant info
-  // app.put("/api/restaurants", (req, res) => {
-  //   console.log(req.body);
-  // });
+  app.put("/api/restaurants", (req, res) => {
+    db.Restaurant.update(req.body, {
+      where: {
+        name: req.body.name,
+        address: req.body.address,
+        hours: req.body.hours,
+        phone: req.body.phone
+      }
+    }).then(dbRestaurant => {
+      res.json(dbRestaurant);
+    });
+  });
 };
