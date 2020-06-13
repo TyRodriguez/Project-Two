@@ -6,7 +6,7 @@ $(document).ready(() => {
 
   $.get("/api/restaurants/recent").then(a => {
     const [data] = a;
-    $(".restaurantName").text(data.name);
+    $(".restaurantName").text(data.name + " ");
     $(".phoneNumber").text(data.phone);
     $(".address").text(data.address);
     $(".hours").text(data.hours);
@@ -20,17 +20,24 @@ $(document).ready(() => {
   $("#tequilabtn").on("click", event => {
     event.preventDefault();
     const menuItem = {
-      // memberName: $(".member-name").text(data.email),
       item: itemName.val().trim(),
       description: itemDescription.val().trim(),
       price: itemPrice.val().trim()
     };
     console.log(menuItem);
-    // run submitRestaurant to create a new Restaurant
+    // run submitItem to create a new Menu item
     submitItem(menuItem);
   });
 
-  // function submitItem(data){
-  //   //$.post("/some route")
-  // }
+  function submitItem(item, description, price) {
+    $.post("/api/menu", {
+      item: item,
+      description: description,
+      price: price
+    }).then(() => {
+      console.log("menu item added");
+      // reload page
+      location.reload();
+    });
+  }
 });
