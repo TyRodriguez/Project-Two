@@ -3,13 +3,19 @@ const db = require("../models");
 
 module.exports = function(app) {
   // get route for restaurants
-  app.get("/api/restaurants/:name", (req, res) => {
+  app.get("/api/restaurant/:name", (req, res) => {
     db.Restaurant.findOne({
       where: {
         name: req.params.name
       }
     }).then(dbRestaurant => {
       res.json(dbRestaurant);
+    });
+  });
+
+  app.get("/api/restaurants/recent", (req, res) => {
+    db.Restaurant.findAll().then(dbRestaurant => {
+      res.json(dbRestaurant.slice(-1));
     });
   });
 
