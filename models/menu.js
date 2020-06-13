@@ -7,6 +7,13 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isIn: [["entree", "appetizer", "side", "beverage", "dessert"]]
+      }
+    },
     description: {
       type: DataTypes.STRING,
       allowNull: false,

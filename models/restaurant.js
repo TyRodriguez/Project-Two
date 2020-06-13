@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     address: {
       type: DataTypes.STRING,
       allowNull: false,
-      lvalidate: {
+      validate: {
         len: [1]
       }
     },
@@ -18,7 +18,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING
     },
     phone: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      validate: {
+        len: [10, 11]
+      }
     }
   });
 
