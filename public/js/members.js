@@ -15,18 +15,37 @@ $(document).ready(() => {
   $("#tequilabtn").on("click", event => {
     event.preventDefault();
     const userRestaurant = {
+      // memberName: $(".member-name").text(data.email),
       name: restaurantName.val().trim(),
       phone: phoneNumber.val().trim(),
       address: address.val().trim(),
       hours: hours.val().trim()
     };
+    console.log(userRestaurant);
     // run submitRestaurant to create a new Restaurant
-    submitRestaurant(userRestaurant);
+    submitRestaurant(
+      userRestaurant.name,
+      userRestaurant.phone,
+      userRestaurant.address,
+      userRestaurant.hours
+    );
   });
+
   // Submits a new restaurant and brings user to menu page
-  function submitRestaurant(data) {
-    $.post("/api/restaurants/", data, () => {
-      //window.location.href = "/menu";
-    });
+  function submitRestaurant(name, phone, address, hours) {
+    $.post("/api/restaurants/", {
+      name: name,
+      phone: phone,
+      address: address,
+      hours: hours
+    })
+      .then(() => {
+        window.location.replace("/menu");
+      })
+      .catch(handleLoginErr);
+  }
+  function handleLoginErr(err) {
+    $("#alert .msg").text(err.responseJSON);
+    $("#alert").fadeIn(500);
   }
 });
