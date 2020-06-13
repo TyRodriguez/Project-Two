@@ -53,10 +53,18 @@ body {
   background-color: white;
   opacity: 90%;
   border-radius: 25px;
+
  
  }  
  .form-group {
    color: #CC3210;
    font-weight: bold;
 
+ }
+ .title {
+   padding-left: 10px;
+   padding-right: 10px;
+ }
+ .section {
+   align-items: center;
  }
