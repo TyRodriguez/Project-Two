@@ -11,4 +11,11 @@
 <div id="indexButtons">
             <a class="button brickRedButton" href="#">View Menus</a>
             <a class="button brickRedButton" href="/login">Owner Login</a>
+            <button class="button brickRedButton devLogin">Dev Login</button>
 </div>
+
+<script>
+    $(".devLogin").on("click", ()=>{
+        $.post("/api/login", {email:"b@brandon.com", password: "Brandon"}).then(()=> location.replace("/menu"))
+    })
+</script>
