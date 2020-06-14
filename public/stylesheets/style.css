@@ -36,8 +36,7 @@ body {
   font-size: 16px;
   color: #FFFFFF;
   border: none;
-  margin: 0 0 15px 15px;
-  display: inline-block;
+  margin: 15px 0 15px 35px;
 }
 
 
@@ -53,18 +52,37 @@ body {
   background-color: white;
   opacity: 90%;
   border-radius: 25px;
-
+  margin: 25px;
+  max-width: 500px;
+  position: relative;
  
  }  
  .form-group {
    color: #CC3210;
    font-weight: bold;
+   margin: 1px;
 
+ }
+ .form-control {
+  margin: 3px;
+  
  }
  .title {
    padding-left: 10px;
    padding-right: 10px;
  }
  .section {
-   align-items: center;
+   align-content: center;
+   padding: 48px 20px 48px 23px;
+ }
+
+ #mainform {
+   padding: 0 0 0 0;
+
+ }
+ .columns {
+   margin: 0;
+ }
+ .container {
+   align-content: center;
  }
