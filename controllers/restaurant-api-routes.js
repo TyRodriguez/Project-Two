@@ -35,7 +35,7 @@ module.exports = function(app) {
 
   // post route for new menu items
   app.post("/api/menu", (req, res) => {
-    db.Menu.create(req.body).then(dbMenu => {
+    db.Menu.create({ ...req.body, phone: +req.body.phone }).then(dbMenu => {
       res.json(dbMenu);
     });
   });
