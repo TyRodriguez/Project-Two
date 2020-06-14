@@ -11,7 +11,7 @@ $(document).ready(() => {
     $(".phoneNumber").text(data.phone);
     $(".address").text(data.address);
     $(".hours").text(data.hours);
-    renderMenu(data.Menus)
+    renderMenu(data.Menus);
   });
 
   // Click events for the edit and delete buttons
