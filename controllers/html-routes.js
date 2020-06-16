@@ -2,7 +2,7 @@
 
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
-
+const db = require("../models");
 module.exports = function(app) {
   app.get("/", (req, res) => {
     // landing page
@@ -34,9 +34,11 @@ module.exports = function(app) {
   });
 
   //this page is for adding menu items for members
-  app.get("/menu", isAuthenticated, (req, res) => {
+  app.get("/menu/:rId", isAuthenticated, (req, res) => {
     // If the user already has an account send them to the members page
-    res.render("menu");
+    db.Restaurant.findOne({ where: { id: req.params.rId }, include: db.Menu })
+      .then(data => res.json(data.dataValues))
+      .catch(err => console.log(err));
   });
 
   // // this page will be for all viewers to see the menu
