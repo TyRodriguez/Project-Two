@@ -6,7 +6,7 @@ $(document).ready(() => {
     currentUser = data;
     console.log(data);
     $(".member-name").text(data.email);
-    renderRestaurants(currentUser.Restaurants);
+    renderRestaurants(data.Restaurants);
   });
   // Getting references to our form and input
   const restaurantName = $("input#restaurantName");
@@ -30,17 +30,25 @@ $(document).ready(() => {
     submitRestaurant(userRestaurant);
   });
 
+  $("#myRestaurants").on("click", "#addRestaurant", () => {
+    $(".modal").addClass("is-active");
+  });
+
+  $("#closeModal").on("click", () => {
+    $(".modal").removeClass("is-active");
+  });
+
   function renderRestaurants(data) {
     data.forEach(a => {
       $("#myRestaurants").append(`
       <div class="card">
   <div class="card-content">
     <div class="media">
-      <div class="media-content">
-        <h3 class="title is-4">Name - ${a.name}</h3>
+      <div class="media-content" style="overflow:unset">
+        <h3 class="title is-4 restaurantTitle">${a.name}</h3>
       </div>
     </div>
-
+    <button class="vodkaButton" id=${a.id} style="position:absolute; top:40%;right:10%">Details</button>
     <div class="content">
       <p>Address - ${a.address}</p>
       <p>Hours - ${a.hours}</p>
@@ -52,11 +60,84 @@ $(document).ready(() => {
     });
   }
 
+  $("#myRestaurants").on("click", ".vodkaButton", function() {
+    console.log($(this).attr("id"));
+    $.get("/menu/" + $(this).attr("id")).then(data => {
+      $("#myRestaurants").html(
+        `<h2>${data.name} Menu Items</h2>${
+          !data.Menus.length
+            ? "<span>You don't have any menu items right now!</span>"
+            : ""
+        }<button class="button is-success is-light" id="addRestaurant">Add Menu Item</button>`
+      );
+      $(".modal-content").html(`
+            <div class="field">
+              <label class="label is-medium" style="color:aqua">Item Name</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input is-medium" id="itemName" placeholder="Tequila">
+                <span class="icon is-left">
+                  <i class="fas fa-utensils fa-lg"></i>
+                </span>
+                <span class="icon is-right">
+                  <i class="fas fa-check fa-lg"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label is-medium" style="color:aqua">Item Description</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input is-medium" id="itemDescription" placeholder="So Tasty!">
+                <span class="icon is-left">
+                  <i class="fas fa-utensils fa-lg"></i>
+                </span>
+                <span class="icon is-right">
+                  <i class="fas fa-check fa-lg"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label is-medium" style="color:aqua">Item Price</label>
+              <div class="control has-icons-left has-icons-right">
+                <input class="input is-medium" id="itemPrice" placeholder="10.50">
+                <span class="icon is-left">
+                  <i class="fas fa-utensils fa-lg"></i>
+                </span>
+                <span class="icon is-right">
+                  <i class="fas fa-check fa-lg"></i>
+                </span>
+              </div>
+            </div>
+            <button class="button brickRedButton" id="whiskeyButton" data-rid=${data.id}>Add Menu Item</button>
+            <button class="button brickRedButton" id="closeModal">Cancel</button>
+`);
+    });
+  });
+
+  $(".modal-content").on("click", "#whiskeyButton", function() {
+    console.log("whiskey!");
+    const menuItem = {
+      item: $("#itemName")
+        .val()
+        .trim(),
+      description: $("#itemDescription")
+        .val()
+        .trim(),
+      price: $("#itemPrice")
+        .val()
+        .trim(),
+      RestaurantId: $(this).data("rid")
+    };
+    console.log(menuItem);
+    // run submitItem to create a new Menu item
+    submitItem(menuItem);
+  });
   // Submits a new restaurant and brings user to menu page
   function submitRestaurant(data) {
     $.post("/api/restaurants/", data)
       .then(() => {
-        window.location.replace("/menu");
+        location.reload();
       })
       .catch(handleLoginErr);
   }
@@ -64,4 +145,46 @@ $(document).ready(() => {
     $("#alert .msg").text(err.responseJSON);
     $("#alert").fadeIn(500);
   }
+
+  function submitItem(item) {
+    $.post("/api/menu", item).then(data => {
+      $(".menu").append(
+        `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit">Edit</button> <button class="delete" item-id="${data.id}">Delete</button>`
+      );
+      // location.reload();
+    });
+  }
+
+  // function renderMenu(arr) {
+  //   arr.forEach(item => {
+  //     $(".menu").append(
+  //       `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`
+  //     );
+  //   });
+  // }
+
+  // $(".menu").on("click", ".delete", function() {
+  //   $.ajax({
+  //     method: "DELETE",
+  //     url: "/api/menu/" + $(this).attr("item-id")
+  //   }).then(() => console.log("deleted!"));
+  // });
+
+  // $(".menu").on("click", ".edit", event => {
+  //   event.preventDefault();
+  //   const menuItem = {
+  //     item: itemName.val().trim(),
+  //     description: itemDescription.val().trim(),
+  //     price: itemPrice.val().trim()
+  //   };
+  //   editItem(menuItem);
+  // });
+
+  // function editItem() {
+  //   $.ajax({
+  //     method: "PUT",
+  //     url: "/api/menu/" + $(this).attr("item-id")
+  //   }).then(() => console.log("edited!"));
+  // }
+  // });
 });

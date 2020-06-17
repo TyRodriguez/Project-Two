@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 form.signup,
 form.login {
   margin-top: 50px;
@@ -87,4 +88,71 @@ body {
  }
  .container {
    align-content: center;
+=======
+form.signup,
+form.login {
+  margin-top: 50px;
+}
+
+/* styles for index.html */
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  background-image: url("../images/storefront.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-position: center; */
+}
+
+#Restaurateur{
+  width:320px;
+  margin: auto;
+  text-align: center;
+  padding-top: 80px;
+}
+
+#indexButtons {
+  max-width:320px;
+  text-align: center;
+  margin-top: 400px;
+  margin: 0 auto;
+}
+  
+
+.brickRedButton {
+  background-color:#CC3210;
+  font-size: 16px;
+  color: #FFFFFF;
+  border: none;
+  margin: 0 0 15px 15px;
+  display: inline-block;
+}
+
+
+
+/* styles for login.html */
+#formContainer{
+  background-color: #FFFFFF;
+  top: 300px;
+  
+}
+
+.restaurant {
+  background-color: white;
+  opacity: 90%;
+  border-radius: 25px;
+
+ 
+ }  
+ .form-group {
+   color: #CC3210;
+   font-weight: bold;
+
+ }
+ .section {
+   align-items: center;
+>>>>>>> 5e3196d3b03ddf98b1002fe42f562227e674ae5d
  }
