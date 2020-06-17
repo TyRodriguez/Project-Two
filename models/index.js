@@ -17,6 +17,8 @@ const sequelize = new Sequelize(
   config
 );
 
+console.log(sequelize)
+
 fs.readdirSync(__dirname)
   .filter(file => {
     return (
