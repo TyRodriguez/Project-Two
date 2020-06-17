@@ -34,7 +34,7 @@ $(document).ready(() => {
     $(".modal").addClass("is-active");
   });
 
-  $("#closeModal").on("click", () => {
+  $(document).on("click", "#closeModal", () => {
     $(".modal").removeClass("is-active");
   });
 
@@ -68,7 +68,7 @@ $(document).ready(() => {
           !data.Menus.length
             ? "<span>You don't have any menu items right now!</span>"
             : ""
-        }<button class="button is-success is-light" id="addRestaurant">Add Menu Item</button>`
+        }<button class="button is-success is-light" id="addRestaurant">Add Menu Item</button><div class="menu"></div>`
       );
       $(".modal-content").html(`
             <div class="field">
@@ -112,6 +112,7 @@ $(document).ready(() => {
             <button class="button brickRedButton" id="whiskeyButton" data-rid=${data.id}>Add Menu Item</button>
             <button class="button brickRedButton" id="closeModal">Cancel</button>
 `);
+      renderMenu(data.Menus);
     });
   });
 
@@ -148,20 +149,18 @@ $(document).ready(() => {
 
   function submitItem(item) {
     $.post("/api/menu", item).then(data => {
-      $(".menu").append(
-        `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit">Edit</button> <button class="delete" item-id="${data.id}">Delete</button>`
-      );
-      // location.reload();
+      $(".modal").removeClass("is-active");
+      renderMenu(data);
     });
   }
 
-  // function renderMenu(arr) {
-  //   arr.forEach(item => {
-  //     $(".menu").append(
-  //       `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`
-  //     );
-  //   });
-  // }
+  function renderMenu(arr) {
+    arr.forEach(item => {
+      $(".menu").append(
+        `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`
+      );
+    });
+  }
 
   // $(".menu").on("click", ".delete", function() {
   //   $.ajax({
