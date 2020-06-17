@@ -29,18 +29,15 @@ module.exports = function(app) {
 
   // put route for updating menu info
   app.put("/api/menu/:id", (req, res) => {
-    db.Menu.update(
-      {
-        item: req.body.item,
-        description: req.body.description,
-        price: req.body.price
-      },
-      {
-        where: { id: req.params.id }
-      }
-    ).then(dbMenu => {
-      res.json(dbMenu);
-    });
+    console.log("UPDATING!")
+    db.Menu.update(req.body, {
+      where: { id: req.params.id }
+    })
+      .then(dbMenu => {
+        console.log(dbMenu);
+        res.json(dbMenu);
+      })
+      .catch(err => console.log(err));
   });
 
   //delete route for getting rid of rows in the menu table
