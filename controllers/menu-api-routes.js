@@ -41,13 +41,23 @@ module.exports = function(app) {
   });
 
   //delete route for getting rid of rows in the menu table
-  app.delete("/api/menu/:id", (req, res) => {
-    db.Menu.destroy({
+  app.delete("/api/menu/:id", async (req, res) => {
+    // identify the item we want to delete
+    const dbMenuItem = await db.Menu.findOne({ where: { id: req.params.id } });
+    // destroy this item
+    await dbMenuItem.destroy({
       where: {
         id: req.params.id
       }
-    }).then(dbMenu => {
-      res.json(dbMenu);
+    });
+    // pull updated database
+    const menuItems = await db.Menu.findAll({
+      where: { RestaurantId: dbMenuItem.RestaurantId }
+    });
+
+    res.json({
+      success: true,
+      menuItems
     });
   });
 };
