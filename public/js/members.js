@@ -158,7 +158,7 @@ $(document).ready(() => {
   function renderMenu(arr) {
     let content = "";
     arr.forEach(item => {
-      content += `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit" item-id="${item.id}">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`;
+      content += `<textarea readonly><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit" item-id="${item.id}">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`;
     });
 
     $(".menu").html(content);
@@ -174,9 +174,14 @@ $(document).ready(() => {
     });
   });
 
-  $("#myRestaurants").on("click", ".edit", event => {
+  $("#myRestaurants").on("click", ".edit", () => {
     event.preventDefault();
     console.log("this", event.currentTarget);
+    console.log(
+      $(event.currentTarget)
+        .parent("textarea")
+        .attr("readonly", false)
+    );
     const menuItem = {
       item: $("#itemName")
         .val()
