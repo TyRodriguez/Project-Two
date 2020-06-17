@@ -28,14 +28,17 @@ module.exports = function(app) {
   });
 
   // put route for updating menu info
-  app.put("/api/menu", (req, res) => {
-    db.Menu.update(req.body, {
-      where: {
+  app.put("/api/menu/:id", (req, res) => {
+    db.Menu.update(
+      {
         item: req.body.item,
         description: req.body.description,
         price: req.body.price
+      },
+      {
+        where: { id: req.params.id }
       }
-    }).then(dbMenu => {
+    ).then(dbMenu => {
       res.json(dbMenu);
     });
   });
