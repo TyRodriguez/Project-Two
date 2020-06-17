@@ -1,10 +1,12 @@
 $(document).ready(() => {
   $(document).prop("title", "Create Your Menu!");
   let restaurant = {};
+
   $.get("/api/user_data").then(data => {
+    console.log(data)
     $(".member-name").text(data.email);
   });
-  $.get("/api/restaurants/27").then(data => {
+  $.get("/api/restaurants/3").then(data => {
     restaurant = data;
     console.log(data);
     $(".restaurantName").text(data.name + " ");
@@ -13,11 +15,6 @@ $(document).ready(() => {
     $(".hours").text(data.hours);
     renderMenu(data.Menus);
   });
-
-  // Click events for the edit and delete buttons
-  // $(document).on("click", "button.delete", handlePostDelete);
-  // $(document).on("click", "button.edit", handlePostEdit);
-
   // Getting references to our form and input for menu items
   const itemName = $("input#itemName");
   const itemDescription = $("input#itemDescription");
@@ -28,8 +25,8 @@ $(document).ready(() => {
     const menuItem = {
       item: itemName.val().trim(),
       description: itemDescription.val().trim(),
-      price: itemPrice.val().trim(),
-      RestaurantId: restaurant.id
+      price: itemPrice.val().trim()
+      // RestaurantId: restaurant.id
     };
     console.log(menuItem);
     // run submitItem to create a new Menu item
@@ -41,6 +38,7 @@ $(document).ready(() => {
       $(".menu").append(
         `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit">Edit</button> <button class="delete" item-id="${data.id}">Delete</button>`
       );
+      location.reload();
     });
   }
 
@@ -58,4 +56,21 @@ $(document).ready(() => {
       url: "/api/menu/" + $(this).attr("item-id")
     }).then(() => console.log("deleted!"));
   });
+
+  $(".menu").on("click", ".edit", event => {
+    event.preventDefault();
+    const menuItem = {
+      item: itemName.val().trim(),
+      description: itemDescription.val().trim(),
+      price: itemPrice.val().trim()
+    };
+    editItem(menuItem);
+  });
+
+  function editItem() {
+    $.ajax({
+      method: "PUT",
+      url: "/api/menu/" + $(this).attr("item-id")
+    }).then(() => console.log("edited!"));
+  }
 });
