@@ -15,7 +15,7 @@ $(document).ready(() => {
   const hours = $("input#hours");
 
   // When the next button is clicked, we validate the input fields are not blank
-  $("#tequilabtn").on("click", event => {
+  $("#addRestaurantButton").on("click", event => {
     event.preventDefault();
     const userRestaurant = {
       // memberName: $(".member-name").text(data.email),
@@ -48,7 +48,7 @@ $(document).ready(() => {
         <h3 class="title is-4 restaurantTitle">${a.name}</h3>
       </div>
     </div>
-    <button class="vodkaButton" id=${a.id} style="position:absolute; top:40%;right:10%">Details</button>
+    <button class="detailsButton" id=${a.id} style="position:absolute; top:40%;right:10%">Details</button>
     <div class="content">
       <p>Address - ${a.address}</p>
       <p>Hours - ${a.hours}</p>
@@ -60,7 +60,7 @@ $(document).ready(() => {
     });
   }
 
-  $("#myRestaurants").on("click", ".vodkaButton", function() {
+  $("#myRestaurants").on("click", ".detailsButton", function() {
     console.log($(this).attr("id"));
     $.get("/menu/" + $(this).attr("id")).then(data => {
       $("#myRestaurants").html(
@@ -109,14 +109,14 @@ $(document).ready(() => {
                 </span>
               </div>
             </div>
-            <button class="button brickRedButton" id="whiskeyButton" data-rid=${data.id}>Add Menu Item</button>
+            <button class="button brickRedButton" id="addMenu" data-rid=${data.id}>Add Menu Item</button>
             <button class="button brickRedButton" id="closeModal">Cancel</button>
 `);
       renderMenu(data.Menus);
     });
   });
 
-  $(".modal-content").on("click", "#whiskeyButton", function() {
+  $(".modal-content").on("click", "#addMenu", function() {
     console.log("whiskey!");
     const menuItem = {
       item: $("#itemName")
@@ -132,6 +132,7 @@ $(document).ready(() => {
     };
     console.log(menuItem);
     // run submitItem to create a new Menu item
+    RestaurantId = menuItem.RestaurantId;
     submitItem(menuItem);
   });
   // Submits a new restaurant and brings user to menu page
@@ -155,35 +156,58 @@ $(document).ready(() => {
   }
 
   function renderMenu(arr) {
+    let content = "";
     arr.forEach(item => {
+<<<<<<< HEAD
       $(".menu").append(
         `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit ">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`
       );
+=======
+      content += `<textarea readonly><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit" item-id="${item.id}">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`;
+>>>>>>> 893a9ce477a426a626bfbef485864bc1506a7504
     });
+
+    $(".menu").html(content);
   }
 
-  // $(".menu").on("click", ".delete", function() {
-  //   $.ajax({
-  //     method: "DELETE",
-  //     url: "/api/menu/" + $(this).attr("item-id")
-  //   }).then(() => console.log("deleted!"));
-  // });
+  $("#myRestaurants").on("click", ".delete", function() {
+    $.ajax({
+      method: "DELETE",
+      url: "/api/menu/" + $(this).attr("item-id")
+    }).then(data => {
+      console.log(data);
+      renderMenu(data.menuItems);
+    });
+  });
 
-  // $(".menu").on("click", ".edit", event => {
-  //   event.preventDefault();
-  //   const menuItem = {
-  //     item: itemName.val().trim(),
-  //     description: itemDescription.val().trim(),
-  //     price: itemPrice.val().trim()
-  //   };
-  //   editItem(menuItem);
-  // });
+  $("#myRestaurants").on("click", ".edit", () => {
+    event.preventDefault();
+    console.log("this", event.currentTarget);
+    console.log(
+      $(event.currentTarget)
+        .parent("textarea")
+        .attr("readonly", false)
+    );
+    const menuItem = {
+      item: $("#itemName")
+        .val()
+        .trim(),
+      description: $("#itemDescription")
+        .val()
+        .trim(),
+      price: $("#itemPrice")
+        .val()
+        .trim(),
+      id: event.currentTarget.getAttribute("item-id")
+    };
+    editItem(menuItem);
+  });
 
-  // function editItem() {
-  //   $.ajax({
-  //     method: "PUT",
-  //     url: "/api/menu/" + $(this).attr("item-id")
-  //   }).then(() => console.log("edited!"));
-  // }
-  // });
+  function editItem(menuItem) {
+    console.log(menuItem);
+    $.ajax({
+      method: "PUT",
+      url: "/api/menu/" + menuItem.id
+    }).then(() => console.log("edited!"));
+  }
 });
