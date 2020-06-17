@@ -177,8 +177,6 @@ $(document).ready(() => {
     });
   }
 
-  
-
   function renderMenu(arr) {
     let content = "";
     arr.forEach(item => {
