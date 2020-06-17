@@ -18,9 +18,12 @@ module.exports = function(app) {
 
   // post route for new menu items
   app.post("/api/menu", (req, res) => {
-    console.log(req.body);
     db.Menu.create(req.body).then(dbMenu => {
-      res.json(dbMenu);
+      db.Menu.findAll({
+        where: { RestaurantId: dbMenu.RestaurantId }
+      })
+        .then(menu => res.json(menu))
+        .catch(err => console.log(err));
     });
   });
 
