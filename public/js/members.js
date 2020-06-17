@@ -158,7 +158,7 @@ $(document).ready(() => {
   function renderMenu(arr) {
     let content = "";
     arr.forEach(item => {
-      content += `<textarea readonly><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit" item-id="${item.id}">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`;
+      content += `<div id="item-id"><p id="itemName" class="editable" contenteditable="true">item - ${item.item} </p><p id="itemDescription"class="editable" contenteditable="true">description - ${item.description} </p><p id="itemPrice"class="editable" contenteditable="true"> price - ${item.price}</p></div><button class="edit" item-id="${item.id}">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`;
     });
 
     $(".menu").html(content);
@@ -176,6 +176,8 @@ $(document).ready(() => {
 
   $("#myRestaurants").on("click", ".edit", () => {
     event.preventDefault();
+    console.log("GIN!!");
+    console.log(this.item);
     console.log("this", event.currentTarget);
     console.log(
       $(event.currentTarget)
@@ -202,6 +204,9 @@ $(document).ready(() => {
     $.ajax({
       method: "PUT",
       url: "/api/menu/" + menuItem.id
-    }).then(() => console.log("edited!"));
+    }).then(data => {
+      console.log(data);
+      renderMenu(data.menuItems);
+    });
   }
 });
