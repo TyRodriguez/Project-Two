@@ -1,0 +1,21 @@
+{{!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"/>
+    <link rel="stylesheet" href="./stylesheets/style.css">
+</head> --}}
+
+<div id="indexButtons">
+            <a class="button brickRedButton" href="#">View Menus</a>
+            <a class="button brickRedButton" href="/login">Owner Login</a>
+            <button class="button brickRedButton devLogin">Dev Login</button>
+</div>
+
+<script>
+    $(".devLogin").on("click", ()=>{
+        $.post("/api/login", {email:"hello@hello.com", password: "hello"}).then(()=> location.replace("/members"))
+    })
+</script>
