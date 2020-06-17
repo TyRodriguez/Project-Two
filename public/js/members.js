@@ -158,7 +158,17 @@ $(document).ready(() => {
   function renderMenu(arr) {
     let content = "";
     arr.forEach(item => {
-      content += `<textarea readonly><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit" item-id="${item.id}">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`;
+      content += `
+      <div>
+        <p>
+            item <input value=${item.item}>
+            description <input value=${item.description}>
+            price <input value=${item.price}>
+        </p>
+      </div>
+      <button class="edit" item-id="${item.id}">Update Item</button> 
+      <button class="delete" item-id="${item.id}">Delete</button>
+      `;
     });
 
     $(".menu").html(content);
@@ -176,32 +186,31 @@ $(document).ready(() => {
 
   $("#myRestaurants").on("click", ".edit", () => {
     event.preventDefault();
-    console.log("this", event.currentTarget);
-    console.log(
-      $(event.currentTarget)
-        .parent("textarea")
-        .attr("readonly", false)
-    );
+    console.log("this", $(event.target).attr("item-id"));
+    const inputs = $(event.target)
+      .siblings("div")
+      .children("p")
+      .children("input");
     const menuItem = {
-      item: $("#itemName")
+      item: $(inputs[0])
         .val()
         .trim(),
-      description: $("#itemDescription")
+      description: $(inputs[1])
         .val()
         .trim(),
-      price: $("#itemPrice")
+      price: $(inputs[2])
         .val()
-        .trim(),
-      id: event.currentTarget.getAttribute("item-id")
+        .trim()
     };
-    editItem(menuItem);
+    editItem(menuItem, event.target.getAttribute("item-id"));
   });
 
-  function editItem(menuItem) {
+  function editItem(menuItem, id) {
     console.log(menuItem);
     $.ajax({
       method: "PUT",
-      url: "/api/menu/" + menuItem.id
+      url: "/api/menu/" + id,
+      data: menuItem
     }).then(() => console.log("edited!"));
   }
 });
