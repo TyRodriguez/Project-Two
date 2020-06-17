@@ -159,7 +159,7 @@ $(document).ready(() => {
   function renderMenu(arr) {
     let content = "";
     arr.forEach(item => {
-      content += `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`;
+      content += `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit" item-id="${item.id}" >Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`;
     });
 
     $(".menu").html(content);
