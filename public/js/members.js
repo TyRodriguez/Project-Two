@@ -1,6 +1,5 @@
 $(document).ready(() => {
   let currentUser;
-  let RestaurantId;
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
   $.get("/api/user_data").then(data => {
@@ -159,7 +158,7 @@ $(document).ready(() => {
   function renderMenu(arr) {
     let content = "";
     arr.forEach(item => {
-      content += `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`;
+      content += `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit" item-id="${item.id}">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`;
     });
 
     $(".menu").html(content);
@@ -168,34 +167,36 @@ $(document).ready(() => {
   $("#myRestaurants").on("click", ".delete", function() {
     $.ajax({
       method: "DELETE",
-      url: "/api/menu/" + $(this).attr("item-id"),
-      //data: { RestaurantId }
+      url: "/api/menu/" + $(this).attr("item-id")
     }).then(data => {
       console.log(data);
       renderMenu(data.menuItems);
     });
   });
 
-  // function getMenu() {
-  //   $.get("/menu/" + $(this).attr("id")).then(data => {
-  //     console.log(data);
-  //   });
-  // }
-
-  $(".menu").on("click", ".edit", event => {
+  $("#myRestaurants").on("click", ".edit", event => {
     event.preventDefault();
+    console.log("this", event.currentTarget);
     const menuItem = {
-      item: itemName.val().trim(),
-      description: itemDescription.val().trim(),
-      price: itemPrice.val().trim()
+      item: $("#itemName")
+        .val()
+        .trim(),
+      description: $("#itemDescription")
+        .val()
+        .trim(),
+      price: $("#itemPrice")
+        .val()
+        .trim(),
+      id: event.currentTarget.getAttribute("item-id")
     };
     editItem(menuItem);
   });
 
-  function editItem() {
+  function editItem(menuItem) {
+    console.log(menuItem);
     $.ajax({
       method: "PUT",
-      url: "/api/menu/" + $(this).attr("item-id")
+      url: "/api/menu/" + menuItem.id
     }).then(() => console.log("edited!"));
   }
 });
