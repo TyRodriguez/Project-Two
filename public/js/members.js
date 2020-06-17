@@ -49,16 +49,38 @@ $(document).ready(() => {
       </div>
     </div>
     <button class="detailsButton" id=${a.id} style="position:absolute; top:40%;right:10%">Details</button>
+    <button class="editRestaurant" id=${a.id} style="position:absolute; top:40%;right:5%%">Edit</button>
     <div class="content">
+      <div class="show display">
       <p>Address - ${a.address}</p>
       <p>Hours - ${a.hours}</p>
       <p>Phone - ${a.phone}</p>
+      </div>
+      <div class="hide editR">
+        <p>
+          Title - <input value=${a.name}>
+          Address - <input value=${a.address}>
+          Hours - <input value=${a.hours}>
+          Phone - <input value=${a.phone}>
+        </p>
+        <button class="updateRestaurant" rId=${a.id}>Update</button>
     </div>
-  </div>
 </div>
       `);
     });
   }
+
+  $("#myRestaurants").on("click", ".editRestaurant", e => {
+    const content = $(e.target).siblings(".content");
+    content
+      .children(".display")
+      .removeClass("show")
+      .addClass("hide");
+    content
+      .children(".editR")
+      .removeClass("hide")
+      .addClass("show");
+  });
 
   $("#myRestaurants").on("click", ".detailsButton", function() {
     console.log($(this).attr("id"));
@@ -68,7 +90,7 @@ $(document).ready(() => {
           !data.Menus.length
             ? "<span>You don't have any menu items right now!</span>"
             : ""
-        }<button class="button is-success is-light" id="addRestaurant">Add Menu Item</button><div class="menu"></div>`
+        }<button class="button is-success is-light" id="addRestaurant">Add Menu Item</button><button id="back2R">Back</button><div class="menu"></div>`
       );
       $(".modal-content").html(`
             <div class="field">
@@ -155,6 +177,8 @@ $(document).ready(() => {
     });
   }
 
+  
+
   function renderMenu(arr) {
     let content = "";
     arr.forEach(item => {
@@ -205,6 +229,29 @@ $(document).ready(() => {
     editItem(menuItem, event.target.getAttribute("item-id"));
   });
 
+  $("#myRestaurants").on("click", ".updateRestaurant", e => {
+    const inputs = $(e.target)
+      .siblings("p")
+      .children("input");
+    editRestaurant(
+      {
+        name: $(inputs[0])
+          .val()
+          .trim(),
+        address: $(inputs[1])
+          .val()
+          .trim(),
+        hours: $(inputs[2])
+          .val()
+          .trim(),
+        phone: $(inputs[3])
+          .val()
+          .trim()
+      },
+      $(e.target).attr("rId")
+    );
+  });
+
   function editItem(menuItem, id) {
     console.log(menuItem);
     $.ajax({
@@ -212,5 +259,13 @@ $(document).ready(() => {
       url: "/api/menu/" + id,
       data: menuItem
     }).then(() => console.log("edited!"));
+  }
+
+  function editRestaurant(data, id) {
+    $.ajax({
+      method: "PUT",
+      url: "/api/restaurants/" + id,
+      data
+    }).then(data => location.reload());
   }
 });
