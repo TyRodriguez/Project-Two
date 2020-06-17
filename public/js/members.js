@@ -168,7 +168,7 @@ $(document).ready(() => {
   $("#myRestaurants").on("click", ".delete", function() {
     $.ajax({
       method: "DELETE",
-      url: "/api/menu/" + $(this).attr("item-id"),
+      url: "/api/menu/" + $(this).attr("item-id")
       //data: { RestaurantId }
     }).then(data => {
       console.log(data);
