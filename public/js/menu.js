@@ -1,9 +1,8 @@
 $(document).ready(() => {
   $(document).prop("title", "Create Your Menu!");
-  let restaurant = {};
 
   $.get("/api/user_data").then(data => {
-    console.log(data)
+    console.log(data);
     $(".member-name").text(data.email);
   });
   $.get("/api/restaurants/3").then(data => {
