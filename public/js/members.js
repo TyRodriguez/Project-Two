@@ -68,7 +68,7 @@ $(document).ready(() => {
           !data.Menus.length
             ? "<span>You don't have any menu items right now!</span>"
             : ""
-        }<button class="button is-success is-light" id="addRestaurant">Add Menu Item</button><div class="menu"></div>`
+        }<button class="button brickRedButton" id="addRestaurant">Add Menu Item</button><div class="menu"></div>`
       );
       $(".modal-content").html(`
             <div class="field">
@@ -102,7 +102,7 @@ $(document).ready(() => {
               <div class="control has-icons-left has-icons-right">
                 <input class="input is-medium" id="itemPrice" placeholder="10.50">
                 <span class="icon is-left">
-                  <i class="fas fa-utensils fa-lg"></i>
+                  <i class="dollar-sign fa-lg"></i>
                 </span>
                 <span class="icon is-right">
                   <i class="fas fa-check fa-lg"></i>
@@ -157,7 +157,7 @@ $(document).ready(() => {
   function renderMenu(arr) {
     arr.forEach(item => {
       $(".menu").append(
-        `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`
+        `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit ">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`
       );
     });
   }
