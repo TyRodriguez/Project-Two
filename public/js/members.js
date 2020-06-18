@@ -264,6 +264,6 @@ $(document).ready(() => {
       method: "PUT",
       url: "/api/restaurants/" + id,
       data
-    }).then(data => location.reload());
+    }).then(() => location.reload());
   }
 });
