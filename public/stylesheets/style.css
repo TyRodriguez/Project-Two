@@ -15,7 +15,13 @@ body {
   background-size: cover;
   /* background-position: center; */
 }
+.show {
+  display:block
+}
 
+.hide {
+  display:none
+}
 #Restaurateur{
   width:320px;
   margin: auto;
