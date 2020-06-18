@@ -29,7 +29,7 @@ module.exports = function(app) {
 
   // put route for updating menu info
   app.put("/api/menu/:id", (req, res) => {
-    console.log("UPDATING!")
+    console.log("UPDATING!");
     db.Menu.update(req.body, {
       where: { id: req.params.id }
     })
