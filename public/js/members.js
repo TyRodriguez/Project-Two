@@ -124,7 +124,7 @@ $(document).ready(() => {
               <div class="control has-icons-left has-icons-right">
                 <input class="input is-medium" id="itemPrice" placeholder="10.50">
                 <span class="icon is-left">
-                  <i class="fas fa-utensils fa-lg"></i>
+                  <i class="dollar-sign fa-lg"></i>
                 </span>
                 <span class="icon is-right">
                   <i class="fas fa-check fa-lg"></i>
@@ -264,6 +264,6 @@ $(document).ready(() => {
       method: "PUT",
       url: "/api/restaurants/" + id,
       data
-    }).then(data => location.reload());
+    }).then(() => location.reload());
   }
 });
