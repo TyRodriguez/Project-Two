@@ -1,6 +1,5 @@
 $(document).ready(() => {
   $(document).prop("title", "Create Your Menu!");
-
   $.get("/api/user_data").then(data => {
     console.log(data);
     $(".member-name").text(data.email);
