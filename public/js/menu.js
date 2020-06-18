@@ -34,7 +34,7 @@ $(document).ready(() => {
   function submitItem(item) {
     $.post("/api/menu", item).then(data => {
       $(".menu").append(
-        `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit">Edit</button> <button class="delete" item-id="${data.id}">Delete</button>`
+        `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><br><button class="edit brickRedButton">Edit</button> <button class="delete" item-id="${data.id}">Delete</button>`
       );
       location.reload();
     });
@@ -43,7 +43,7 @@ $(document).ready(() => {
   function renderMenu(arr) {
     arr.forEach(item => {
       $(".menu").append(
-        `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`
+        `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><br><button class="edit">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`
       );
     });
   }

@@ -3,24 +3,22 @@ form.login {
   margin-top: 50px;
 }
 
-/* styles for index.html */
-html {
-  height: 100%;
-}
 body {
   height: 100%;
   margin: 0;
+  background-image: fixed;
   background-image: url("../images/storefront.png");
   background-repeat: no-repeat;
-  background-size: cover;
-  /* background-position: center; */
+  background-attachment: fixed;
+  background-size: 100% 100%;
 }
 
 #Restaurateur{
   width:320px;
   margin: auto;
-  text-align: center;
+  text-align: center;   
   padding-top: 80px;
+  position: static;
 }
 
 #indexButtons {
@@ -28,6 +26,7 @@ body {
   text-align: center;
   margin-top: 400px;
   margin: 0 auto;
+  padding: 5px;
 }
   
 
@@ -37,18 +36,10 @@ body {
   color: #FFFFFF;
   border: none;
   display: block;
-  margin: 10px auto;
+  margin: 10px 10px;
+  padding: 5px 5px;
   width: 125px;
 }
-
-
-
-/* styles for login.html */
-/* #formContainer{
-  background-color: #FFFFFF;
-  top: 300px;
-  
-} */
 
 .restaurant {
   background-color: white;
@@ -66,10 +57,6 @@ body {
    font-weight: bold;
    margin: 1px;
 
- }
- .form-control {
-  margin: 3px;
-  
  }
  .title {
    padding-left: 10px;

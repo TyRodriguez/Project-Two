@@ -48,13 +48,14 @@ $(document).ready(() => {
         <h3 class="title is-4 restaurantTitle">${a.name}</h3>
       </div>
     </div>
-    <button class="detailsButton" id=${a.id} style="position:absolute; top:40%;right:10%">Details</button>
-    <button class="editRestaurant" id=${a.id} style="position:absolute; top:40%;right:5%%">Edit</button>
+  
     <div class="content">
       <div class="show display" id="show">
       <p>Address - ${a.address}</p>
       <p>Hours - ${a.hours}</p>
-      <p>Phone - ${a.phone}</p>
+      <p>Phone - ${a.phone}</p> 
+       <button class="detailsButton" id=${a.id} style="position:absolute; top:40%;right:10%">Details</button>
+    <button class="editRestaurant" id=${a.id} style="position:absolute; top:40%;right:5%%">Edit</button>
       </div>
       <div class="hide editR" id="hide" hidden>
         <p>
@@ -82,53 +83,40 @@ $(document).ready(() => {
     // .addClass("show");
   });
 
-  $("#myRestaurants").on("click", ".detailsButton", function() {
+  $("#myRestaurants").on("click", ".detailsButton", function () {
     console.log($(this).attr("id"));
     $.get("/menu/" + $(this).attr("id")).then(data => {
       $("#myRestaurants").html(
-        `<h2>${data.name} Menu Items</h2>${
-          !data.Menus.length
-            ? "<span>You don't have any menu items right now!</span>"
-            : ""
-        }<button class="button is-success is-light" id="addRestaurant">Add Menu Item</button><button id="back2R">Back</button><div class="menu"></div>`
+        `<p class="title is-4">${data.name}Menu Items</p>
+       
+        ${!data.Menus.length
+          ? "<span>You don't have any menu items right now!</span>"
+          : ""
+        }
+        <div class="buttons">
+        <button class="button brickRedButton" id="addRestaurant">Add Menu Item</button>
+        <button class="button brickRedButton" id="back2R">Back</button>
+        </div>`
       );
       $(".modal-content").html(`
             <div class="field">
-              <label class="label is-medium" style="color:aqua">Item Name</label>
-              <div class="control has-icons-left has-icons-right">
-                <input class="input is-medium" id="itemName" placeholder="Tequila">
-                <span class="icon is-left">
-                  <i class="fas fa-utensils fa-lg"></i>
-                </span>
-                <span class="icon is-right">
-                  <i class="fas fa-check fa-lg"></i>
-                </span>
+              <label class="label is-medium" style="color:#CC3210">Item Name</label>
+              <div class="control">
+                <input class="input" id="itemName">
               </div>
             </div>
 
             <div class="field">
-              <label class="label is-medium" style="color:aqua">Item Description</label>
-              <div class="control has-icons-left has-icons-right">
-                <input class="input is-medium" id="itemDescription" placeholder="So Tasty!">
-                <span class="icon is-left">
-                  <i class="fas fa-utensils fa-lg"></i>
-                </span>
-                <span class="icon is-right">
-                  <i class="fas fa-check fa-lg"></i>
-                </span>
+              <label class="label is-medium" style="color:#CC3210">Item Description</label>
+              <div class="control">
+                <input class="input" id="itemDescription">
               </div>
             </div>
 
             <div class="field">
-              <label class="label is-medium" style="color:aqua">Item Price</label>
-              <div class="control has-icons-left has-icons-right">
-                <input class="input is-medium" id="itemPrice" placeholder="10.50">
-                <span class="icon is-left">
-                  <i class="dollar-sign fa-lg"></i>
-                </span>
-                <span class="icon is-right">
-                  <i class="fas fa-check fa-lg"></i>
-                </span>
+              <label class="label is-medium" style="color:#CC3210">Item Price</label>
+              <div class="control">
+                <input class="input" id="itemPrice">
               </div>
             </div>
             <button class="button brickRedButton" id="addMenu" data-rid=${data.id}>Add Menu Item</button>
@@ -138,7 +126,7 @@ $(document).ready(() => {
     });
   });
 
-  $(".modal-content").on("click", "#addMenu", function() {
+  $(".modal-content").on("click", "#addMenu", function () {
     console.log("whiskey!");
     const menuItem = {
       item: $("#itemName")
@@ -184,19 +172,23 @@ $(document).ready(() => {
       <div>
         <p>
             item <input value=${item.item}>
+            <br>
             description <input value=${item.description}>
+            <br>
             price <input value=${item.price}>
         </p>
       </div>
-      <button class="edit" item-id="${item.id}">Update Item</button> 
-      <button class="delete" item-id="${item.id}">Delete</button>
+      <button class="button is-small" item-id="${item.id}">Update Item</button>
+     
+      <br>
+      <button class="delete" style="color: CC3210" item-id="${item.id}">Delete</button>
       `;
     });
 
     $(".menu").html(content);
   }
 
-  $("#myRestaurants").on("click", ".delete", function() {
+  $("#myRestaurants").on("click", ".delete", function () {
     $.ajax({
       method: "DELETE",
       url: "/api/menu/" + $(this).attr("item-id")

@@ -1,25 +1,24 @@
-
-      <div class="column is-8 is-offset-2" id="formContainer">
-        <h1 class="title">Login Form</h1>
-        <form class="login">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="email-input" placeholder="Email">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="password-input" placeholder="Password">
-          </div>
-          
-          {{!-- below on submit, we need the page to go to members.handlebars
+<div class="column is-8 is-offset-2" id="formContainer">
+  <h1 class="title">Login Form</h1>
+  <div class="field">
+    <label class="label">Email Address</label>
+    <div class="control">
+      <input class="input" type="text" id="email-input" placeholder="Email">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Password</label>
+    <div class="control">
+      <input class="input" type="password" id="password-input" placeholder="Password">
+    </div>
+  </div>
+  {{!-- below on submit, we need the page to go to members.handlebars
           and display the members email address that was entered above on the page --}}
-          <button class="button brickRedButton" id="loginbtn">Log In</button>
-          {{!-- <button type="submit" class="btn btn-default">Login</button> --}}
-         
-        </form>
-        <br />
-        {{!-- the route below isnt going to signup.handlebars and I cant figure out why --}}
-        <p>Or sign up <a href="/signup">here</a></p>
-      </div>
+  <button class="button brickRedButton" id="loginbtn">Log In</button>
+  {{!-- <button type="submit" class="btn btn-default">Login</button> --}}
+  <br />
+  {{!-- the route below isnt going to signup.handlebars and I cant figure out why --}}
+  <p>Or sign up <a href="/signup">here</a></p>
+</div>
 
-    <script src="./js/login.js"></script>
+<script src="./js/login.js"></script>
