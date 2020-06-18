@@ -34,13 +34,10 @@ module.exports = function(app) {
   });
 
   //put route for updating restaurant info
-  app.put("/api/restaurants", (req, res) => {
+  app.put("/api/restaurants/:id", (req, res) => {
     db.Restaurant.update(req.body, {
       where: {
-        name: req.body.name,
-        address: req.body.address,
-        hours: req.body.hours,
-        phone: req.body.phone
+        id: req.params.id
       }
     }).then(dbRestaurant => {
       res.json(dbRestaurant);
