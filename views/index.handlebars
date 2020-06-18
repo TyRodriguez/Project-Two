@@ -9,13 +9,7 @@
 </head> --}}
 
 <div id="indexButtons">
-            <a class="button brickRedButton" href="#">View Menus</a>
-            <a class="button brickRedButton" href="/login">Owner Login</a>
-            <button class="button brickRedButton devLogin">Dev Login</button>
+            <a class="button is-normal brickRedButton" href="#">View Menus</a>
+            <a class="button is-normal brickRedButton" href="/login">Owner Login</a>
 </div>
 
-<script>
-    $(".devLogin").on("click", ()=>{
-        $.post("/api/login", {email:"test@test.com", password: "123"}).then(()=> location.replace("/members"))
-    })
-</script>
