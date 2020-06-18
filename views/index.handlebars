@@ -11,11 +11,5 @@
 <div id="indexButtons">
             <a class="button is-normal brickRedButton" href="#">View Menus</a>
             <a class="button is-normal brickRedButton" href="/login">Owner Login</a>
-            <button class="button brickRedButton devLogin">Dev Login</button>
 </div>
 
-<script>
-    $(".devLogin").on("click", ()=>{
-        $.post("/api/login", {email:"hello@hello.com", password: "hello"}).then(()=> location.replace("/members"))
-    })
-</script>
