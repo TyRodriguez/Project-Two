@@ -51,12 +51,12 @@ $(document).ready(() => {
     <button class="detailsButton" id=${a.id} style="position:absolute; top:40%;right:10%">Details</button>
     <button class="editRestaurant" id=${a.id} style="position:absolute; top:40%;right:5%%">Edit</button>
     <div class="content">
-      <div class="show display">
+      <div class="show display" id="show">
       <p>Address - ${a.address}</p>
       <p>Hours - ${a.hours}</p>
       <p>Phone - ${a.phone}</p>
       </div>
-      <div class="hide editR">
+      <div class="hide editR" id="hide" hidden>
         <p>
           Title - <input value=${a.name}>
           Address - <input value=${a.address}>
@@ -72,14 +72,14 @@ $(document).ready(() => {
 
   $("#myRestaurants").on("click", ".editRestaurant", e => {
     const content = $(e.target).siblings(".content");
-    content
-      .children(".display")
-      .removeClass("show")
-      .addClass("hide");
-    content
-      .children(".editR")
-      .removeClass("hide")
-      .addClass("show");
+    // content.children(".display").hide();
+    content.children("#show").hide();
+    // .removeClass("show")
+    // .addClass("hide");
+    // content.children(".editR").show();
+    content.children("#hide").show();
+    // .removeClass("hide")
+    // .addClass("show");
   });
 
   $("#myRestaurants").on("click", ".detailsButton", function() {
