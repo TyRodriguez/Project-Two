@@ -90,7 +90,11 @@ $(document).ready(() => {
           !data.Menus.length
             ? "<span>You don't have any menu items right now!</span>"
             : ""
+<<<<<<< HEAD
+        }<button class="button brickRedButton" id="addRestaurant">Add Menu Item</button><div class="menu"></div>`
+=======
         }<button class="button is-success is-light" id="addRestaurant">Add Menu Item</button><button id="back2R">Back</button><div class="menu"></div>`
+>>>>>>> 785b7f23f3c47c3c67d7f3efd5ec1b2441710113
       );
       $(".modal-content").html(`
             <div class="field">
@@ -124,7 +128,7 @@ $(document).ready(() => {
               <div class="control has-icons-left has-icons-right">
                 <input class="input is-medium" id="itemPrice" placeholder="10.50">
                 <span class="icon is-left">
-                  <i class="fas fa-utensils fa-lg"></i>
+                  <i class="dollar-sign fa-lg"></i>
                 </span>
                 <span class="icon is-right">
                   <i class="fas fa-check fa-lg"></i>
@@ -180,6 +184,15 @@ $(document).ready(() => {
   function renderMenu(arr) {
     let content = "";
     arr.forEach(item => {
+<<<<<<< HEAD
+<<<<<<< HEAD
+      $(".menu").append(
+        `<div><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit ">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`
+      );
+=======
+      content += `<textarea readonly><p>item - ${item.item} description - ${item.description} price - ${item.price}</p></div><button class="edit" item-id="${item.id}">Edit</button> <button class="delete" item-id="${item.id}">Delete</button>`;
+>>>>>>> 893a9ce477a426a626bfbef485864bc1506a7504
+=======
       content += `
       <div>
         <p>
@@ -191,6 +204,7 @@ $(document).ready(() => {
       <button class="edit" item-id="${item.id}">Update Item</button> 
       <button class="delete" item-id="${item.id}">Delete</button>
       `;
+>>>>>>> a81a90f066e3477a4534c46b5f68e575b6086942
     });
 
     $(".menu").html(content);
