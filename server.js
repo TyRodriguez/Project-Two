@@ -27,6 +27,7 @@ require("./controllers/html-routes.js")(app);
 require("./controllers/passport-api-routes.js")(app);
 require("./controllers/restaurant-api-routes.js")(app);
 require("./controllers/menu-api-routes.js")(app);
+require("./controllers/view-api-routes")(app);
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync({ force: false }).then(() => {

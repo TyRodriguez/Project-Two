@@ -35,9 +35,7 @@ module.exports = function(app) {
       .then(data => res.json(data.dataValues))
       .catch(err => console.log(err));
   });
-  // // this page will be for all viewers to see the menu
-  // app.get("/menu", (req, res) => {
-  //   // send front end menu
-  //   res.render("");
-  // });
+  app.get("/view-restaurants", (req, res) => {
+    res.render("restaurants");
+  });
 };
